@@ -33,3 +33,19 @@ An automated Bash-based integrity scanner and incident response tool for Zimbra 
    ```cron
       0 7 * * * /your_script_folder/zimbra-security-check.sh > /dev/null 2>&1
    ```
+
+## 💡 Why This Project Exists
+
+This project was developed in response to real-world security incidents and stealthy intrusion attempts targeting Zimbra 8.8.15 servers. Standard monitoring tools often miss low-profile threats that bypass basic log checks. 
+
+This automated scanner was specifically created to provide instant visibility against:
+
+- **Webshell Uploads:** Unauthorized `.jsp` backdoors injected into Jetty & Mailboxd web applications.
+- **Rogue Executables:** Suspicious `.sh`, `.py`, or binary execution attempts inside `/tmp`, `/var/tmp`, and `/dev/shm`.
+- **Memory Persistence:** Stealthy background processes masquerading under Zimbra system privilege.
+- **Crontab Backdoors:** Unauthorized scheduled tasks added to the `zimbra` user crontab.
+
+Instead of just sending generic alerts, it automatically generates **Click & Copy** terminal commands to empower sysadmins with zero-delay incident response.
+
+## 🔗 Related Projects
+- [zimbra-fail2ban](https://github.com/xertgun/zimbra-fail2ban) - Fail2Ban filters, jail rules, and daily HTML defense reporter for Zimbra.
