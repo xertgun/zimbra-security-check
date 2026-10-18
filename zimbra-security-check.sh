@@ -179,7 +179,7 @@ if [ -n "$NEW_WEB_FILES" ]; then
 fi
 
 cat <<EOF >> "$REPORT_FILE"
-  <div class="footer">Automated Zimbra Security Scanner</div>
+  <div class="footer">Automated EGTA Security Scanner</div>
 </div>
 </body>
 </html>
