@@ -13,11 +13,9 @@ Follow these simple steps to create a Telegram Bot and obtain your `TELEGRAM_BOT
       1. Enter a Name for your bot (`e.g., My Server Monitor`).
       2. Enter a unique Username ending in bot (e.g., `ZimbraAlerts_bot`).
       3. BotFather will reply with your HTTP API Token.
-      ```>
-      Example Token: `123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ1234567`
-      📌 Save this token as your `TELEGRAM_BOT_TOKEN`.
-      ```
-
+         > **Example Token:** `123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ1234567`
+         > 
+         > 📌 Save this token as your **`TELEGRAM_BOT_TOKEN`**.
 ## Step 2: Get Your Chat ID
    ### Option A: For Personal Direct Messages (Simplest)
    1. Search for `@userinfobot` or `@raw_data_bot` in Telegram and send any message.
@@ -32,9 +30,7 @@ Follow these simple steps to create a Telegram Bot and obtain your `TELEGRAM_BOT
       https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
       ```
    4. Look for `"chat":{"id": -100xxxxxxxxxx}` in the JSON response.
-      ```>
-      📌 Save this number (including the minus - sign) as your TELEGRAM_CHAT_ID.
-      ```
+      > 📌 Save this number (including the minus - sign) as your `TELEGRAM_CHAT_ID`.
 ## Step 3: Configure the Script
    Open zimbra-security-check.sh and insert your credentials:
    ```bash
