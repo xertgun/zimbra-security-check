@@ -30,7 +30,8 @@ WEB_JSP_SCAN=$(find /opt/zimbra/jetty/webapps /opt/zimbra/mailboxd/webapps -type
 NEW_WEB_FILES=$(find /opt/zimbra/jetty/webapps/ /opt/zimbra/mailboxd/webapps/ -type f -mtime -1 2>/dev/null | grep -vE "\.(xml|properties|html)$")
 
 # 2. Process / Memory Inspection (Excluding known Zimbra & Postfix internal daemons)
-RAW_PROC_SCAN=$(ps aux | grep -E "zimbra|postfix" | grep -v -E "java|mailboxd|mysqld|amavis|postfix/|slapd|nginx|sasl|log|unbound|clamd|freshclam|opendkim|httpd|perl|swatchdog|zmstat|iostat|vmstat|grep|master|zimbra-security-check|pickup|qmgr|tlsmgr|postscreen|smtpd|showq|anvil|cleanup|proxymap|bounce|trace|verify|flush|trivial-rewrite|lmtp|zmmtactl|zmantispamctl|smtp" 2>/dev/null)
+RAW_PROC_SCAN=$(ps aux | grep -E "zimbra|postfix" | grep -v -E "java|mailboxd|mysqld|amavis|postfix/|slapd|nginx|sasl|log|unbound|clamd|freshclam|opendkim|httpd|perl|swatchdog|zmstat|iostat|vmstat|grep|master|zimbra-security-check|pickup|qmgr|tlsmgr|postscreen|smtpd|showq|anvil|cleanup|proxymap|bounce|trace|verify|flush|trivial-rewrite|lmtp|zmantispamctl|smtp|zmmtactl|error|discard|virtual|local|pipe|scache|lmtpd|zmlogprocess|zmstatus" 2>/dev/null)
+
 if [ -n "$RAW_PROC_SCAN" ]; then
   ALERT=1
   DETECTED_PIDS=$(echo "$RAW_PROC_SCAN" | awk '{print $2}' | tr '\n' ' ' | sed 's/ $//')
