@@ -8,7 +8,7 @@ An automated Bash-based integrity scanner and incident response tool for Zimbra 
 - **Process Memory Inspection:** Filters out legitimate Zimbra/Postfix daemons and highlights unknown running processes.
 - **Crontab Audit:** Checks for unauthorized persistence mechanisms added to the `zimbra` user crontab.
 - **Interactive HTML Email Reports:** Sends a responsive HTML report with **Click & Copy** remediation commands.
-- **Telegram Alert Integration:** Instantly sends alert notifications via Telegram Bot when threats are detected.
+- **Instant Telegram Alerts:** Sends real-time emergency notifications directly to your Telegram chat/channel when threats or anomalies are detected.
 
 ## 🚀 Quick Start
 
@@ -21,6 +21,8 @@ chmod +x zimbra-security-check.sh
 2. Edit configuration parameters inside the script:
 ```bash
    MAIL_TO="admin@yourdomain.com"
+
+   # Optional: Configure Telegram Bot for instant mobile push alerts
    TELEGRAM_BOT_TOKEN="your_bot_token"
    TELEGRAM_CHAT_ID="your_chat_id"
 ```
