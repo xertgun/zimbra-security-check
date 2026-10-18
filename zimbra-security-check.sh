@@ -88,7 +88,8 @@ cat <<EOF > "$REPORT_FILE"
 <body>
 <div class="card">
   <div class="header">
-    <h2 style="margin:0;">🛡️ Zimbra Daily Integrity & Security Report</h2>
+    <h2 style="margin:0;">🛡️ EGTA Digital Defense Summary</h2>
+    <p style="margin:6px 0 0 0; font-size:13px; font-weight:500; color:#e2e8f0; letter-spacing:0.5px;">Zimbra Daily Integrity & Security Report</p>
     <p style="margin:5px 0 0 0; font-size:12px; color:#cbd5e1;">Server: ${HOSTNAME} | Date: ${DATE}</p>
   </div>
 EOF
