@@ -1,6 +1,7 @@
 # 🛡️ Zimbra Daily Security & Integrity Scanner
 
 An automated Bash-based integrity scanner and incident response tool for Zimbra Collaboration Suite (ZCS).
+> 📌 **Tested & Compatible with:** Zimbra Collaboration Suite 8.8.15 (ZCS 8.8.15 GA).
 
 ## ✨ Features
    - **Webshell Detection:** Scans Jetty & Mailboxd web application paths for unauthorized `.jsp` files.
