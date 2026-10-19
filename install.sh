@@ -41,9 +41,6 @@ echo "🔒 Execution permissions set."
 echo "--------------------------------------------------------"
 read -p "🌐 Enter your mail domain [yourdomain.com]: " USER_DOMAIN
 USER_DOMAIN=${USER_DOMAIN:-yourdomain.com}
-
-#read -p "📧 Enter notification recipient email [admin@${USER_DOMAIN}]: " USER_TO
-#USER_TO=${USER_TO:-admin@${USER_DOMAIN}}
 USER_TO="admin@${USER_DOMAIN}"
 
 read -p "🤖 Enter Telegram Bot Token (Optional, press ENTER to skip): " USER_TG_TOKEN
