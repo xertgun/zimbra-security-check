@@ -39,8 +39,8 @@ echo "🔒 Execution permissions set."
 
 # 5. Interactive Configuration (Domain & Emails & Telegram)
 echo "--------------------------------------------------------"
-read -p "🌐 Enter your mail domain [egta.com.tr]: " USER_DOMAIN
-USER_DOMAIN=${USER_DOMAIN:-egta.com.tr}
+read -p "🌐 Enter your mail domain [yourdomain.com]: " USER_DOMAIN
+USER_DOMAIN=${USER_DOMAIN:-yourdomain.com}
 
 read -p "📧 Enter notification recipient email [admin@${USER_DOMAIN}]: " USER_TO
 USER_TO=${USER_TO:-admin@${USER_DOMAIN}}
