@@ -11,7 +11,7 @@
 # CONFIGURATION AREA (User Specific Settings)
 # ------------------------------------------------------------------------------
 MAIL_FROM="Zimbra Security <zimbra@yourdomain.com>"
-MAIL_TO="your-email@domain.com"
+MAIL_TO="Zimbra Administrator <admin@yourdomain.com>"
 
 HOSTNAME=$(hostname -f)
 DATE=$(date +"%Y-%m-%d %H:%M")
