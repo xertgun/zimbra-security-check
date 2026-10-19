@@ -10,7 +10,9 @@
 # ------------------------------------------------------------------------------
 # CONFIGURATION AREA (User Specific Settings)
 # ------------------------------------------------------------------------------
+MAIL_FROM="Zimbra Security <zimbra@yourdomain.com>"
 MAIL_TO="your-email@domain.com"
+
 HOSTNAME=$(hostname -f)
 DATE=$(date +"%Y-%m-%d %H:%M")
 REPORT_FILE="/tmp/sec_report_$$.html"
@@ -29,8 +31,15 @@ TMP_SCAN=$(find /tmp /var/tmp /dev/shm -type f \( -name "*.sh" -o -name "*.py" -
 WEB_JSP_SCAN=$(find /opt/zimbra/jetty/webapps /opt/zimbra/mailboxd/webapps -type f -name "*.jsp" ! -path "*/zimbraAdmin/*" ! -path "*/zimbra/*" ! -path "*/service/*" 2>/dev/null)
 NEW_WEB_FILES=$(find /opt/zimbra/jetty/webapps/ /opt/zimbra/mailboxd/webapps/ -type f -mtime -1 2>/dev/null | grep -vE "\.(xml|properties|html)$")
 
-# 2. Process / Memory Inspection (Excluding known Zimbra & Postfix internal daemons)
-RAW_PROC_SCAN=$(ps aux | grep -E "zimbra|postfix" | grep -v -E "java|mailboxd|mysqld|amavis|postfix/|slapd|nginx|sasl|log|unbound|clamd|freshclam|opendkim|httpd|perl|swatchdog|zmstat|iostat|vmstat|grep|master|zimbra-security-check|pickup|qmgr|tlsmgr|postscreen|smtpd|showq|anvil|cleanup|proxymap|bounce|trace|verify|flush|trivial-rewrite|lmtp|zmantispamctl|smtp|zmmtactl|error|discard|virtual|local|pipe|scache|lmtpd|zmlogprocess|zmstatus" 2>/dev/null)
+# 2. Process / Memory Inspection (Using external exclude file for clean code)
+EXCLUDE_FILE="/home/scripts/zimbra-security-excludes.conf"
+
+if [ -f "$EXCLUDE_FILE" ]; then
+    RAW_PROC_SCAN=$(ps aux | grep -E "zimbra|postfix" | grep -v -F -f "$EXCLUDE_FILE")
+else
+    # Fallback mechanism if exclude file is missing
+    RAW_PROC_SCAN=$(ps aux | grep -E "zimbra|postfix" | grep -v -E "java|mailboxd|mysqld|amavis")
+fi
 
 if [ -n "$RAW_PROC_SCAN" ]; then
   ALERT=1
@@ -75,7 +84,7 @@ cat <<EOF > "$REPORT_FILE"
   th { background-color: #f8fafc; color: #475569; font-weight: 600; }
   .proc-table { font-family: monospace; font-size: 12px; background: #0f172a; color: #f8fafc; border-radius: 6px; overflow: hidden; }
   .proc-table th { background-color: #1e293b; color: #38bdf8; border-bottom: 1px solid #334155; }
-  .proc-table td { border-bottom: 1px solid #1e293b; }
+  .proc-table td { border-bottom: 1px solid #0f172a; }
   .pid-col { color: #facc15; font-weight: bold; }
   pre { background: #0f172a; color: #38bdf8; padding: 10px; border-radius: 6px; font-size: 11px; overflow-x: auto; white-space: pre-wrap; }
   .cmd-box { background: #0f172a; border-left: 4px solid #10b981; border-radius: 6px; padding: 12px; margin-top: 10px; }
@@ -203,5 +212,5 @@ if [ $ALERT -eq 1 ]; then
   fi
 fi
 
-mail -a "Content-Type: text/html; charset=UTF-8" -s "$SUBJECT" "$MAIL_TO" < "$REPORT_FILE"
+mail -a "Content-Type: text/html; charset=UTF-8" -a "From: ${MAIL_FROM}" -s "$SUBJECT" "$MAIL_TO" < "$REPORT_FILE"
 rm -f "$REPORT_FILE"
