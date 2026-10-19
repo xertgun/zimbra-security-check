@@ -25,8 +25,8 @@ An automated Bash-based integrity scanner and incident response tool for Zimbra 
       MAIL_TO="admin@yourdomain.com"
 
       # Optional: Configure Telegram Bot for instant mobile push alerts
-      TELEGRAM_BOT_TOKEN="your_bot_token"
-      TELEGRAM_CHAT_ID="your_chat_id"
+      TELEGRAM_BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN"
+      TELEGRAM_CHAT_ID="YOUR_TELEGRAM_CHAT_ID"
    ```
    > 💡 *Need help setting up Telegram notifications? Check out the [Telegram Setup Guide](TELEGRAM_SETUP.md).*
 
