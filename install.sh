@@ -37,21 +37,38 @@ curl -s -O "${REPO_URL}/zimbra-security-excludes.conf"
 chmod +x zimbra-security-check.sh
 echo "🔒 Execution permissions set."
 
-# 5. Interactive Configuration for MAIL_FROM and MAIL_TO
+# 5. Interactive Configuration (Domain & Emails & Telegram)
 echo "--------------------------------------------------------"
-read -p "📤 Enter sender email / From address [zimbra@yourdomain.com]: " USER_FROM
-USER_FROM=${USER_FROM:-Zimbra Security <zimbra@yourdomain.com>}
+read -p "🌐 Enter your mail domain [egta.com.tr]: " USER_DOMAIN
+USER_DOMAIN=${USER_DOMAIN:-egta.com.tr}
 
-read -p "📧 Enter notification recipient email / To address [admin@yourdomain.com]: " USER_TO
-USER_TO=${USER_TO:-admin@yourdomain.com}
+read -p "📧 Enter notification recipient email [admin@${USER_DOMAIN}]: " USER_TO
+USER_TO=${USER_TO:-admin@${USER_DOMAIN}}
 
-# Update MAIL_FROM and MAIL_TO inside the script dynamically
-sed -i "s|MAIL_FROM=\".*\"|MAIL_FROM=\"Zimbra Security <${USER_FROM}>\"|g" zimbra-security-check.sh
+read -p "🤖 Enter Telegram Bot Token (Optional, press ENTER to skip): " USER_TG_TOKEN
+read -p "💬 Enter Telegram Chat ID (Optional, press ENTER to skip): " USER_TG_CHAT
+
+# Construct MAIL_FROM automatically using the domain
+USER_FROM="Zimbra Security <zimbra@${USER_DOMAIN}>"
+
+# Update variables inside the script dynamically using sed
+sed -i "s|MAIL_FROM=\".*\"|MAIL_FROM=\"${USER_FROM}\"|g" zimbra-security-check.sh
 sed -i "s|MAIL_TO=\".*\"|MAIL_TO=\"${USER_TO}\"|g" zimbra-security-check.sh
 
-echo "✅ Sender (From) updated to: ${USER_FROM}"
-echo "✅ Recipient (To) updated to: ${USER_TO}"
+# Update Telegram credentials if provided
+if [ -n "$USER_TG_TOKEN" ]; then
+    sed -i "s|TELEGRAM_BOT_TOKEN=\".*\"|TELEGRAM_BOT_TOKEN=\"${USER_TG_TOKEN}\"|g" zimbra-security-check.sh
+fi
 
+if [ -n "$USER_TG_CHAT" ]; then
+    sed -i "s|TELEGRAM_CHAT_ID=\".*\"|TELEGRAM_CHAT_ID=\"${USER_TG_CHAT}\"|g" zimbra-security-check.sh
+fi
+
+echo "--------------------------------------------------------"
+echo "✅ Configuration Applied Successfully!"
+echo "   - Sender (From) : ${USER_FROM}"
+echo "   - Recipient (To): ${USER_TO}"
+[ -n "$USER_TG_TOKEN" ] && echo "   - Telegram      : Configured ✅" || echo "   - Telegram      : Skipped ℹ️"
 echo "--------------------------------------------------------"
 echo "🎉 Installation Completed Successfully!"
 echo "📍 Location: $INSTALL_DIR"
