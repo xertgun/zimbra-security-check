@@ -21,6 +21,7 @@ An automated Bash-based integrity scanner and incident response tool for Zimbra 
 
 2. Edit configuration parameters inside the script:
    ```bash
+      MAIL_FROM="Zimbra Security <zimbra@yourdomain.com>"
       MAIL_TO="admin@yourdomain.com"
 
       # Optional: Configure Telegram Bot for instant mobile push alerts
