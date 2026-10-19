@@ -37,14 +37,20 @@ curl -s -O "${REPO_URL}/zimbra-security-excludes.conf"
 chmod +x zimbra-security-check.sh
 echo "🔒 Execution permissions set."
 
-# 5. Interactive Configuration for MAIL_TO
+# 5. Interactive Configuration for MAIL_FROM and MAIL_TO
 echo "--------------------------------------------------------"
-read -p "📧 Enter your notification email address [admin@yourdomain.com]: " USER_EMAIL
-USER_EMAIL=${USER_EMAIL:-admin@yourdomain.com}
+read -p "📤 Enter sender email / From address [Zimbra Security <zimbra@yourdomain.com>]: " USER_FROM
+USER_FROM=${USER_FROM:-Zimbra Security <zimbra@yourdomain.com>}
 
-# Update MAIL_TO inside the script dynamically
-sed -i "s|MAIL_TO=\".*\"|MAIL_TO=\"${USER_EMAIL}\"|g" zimbra-security-check.sh
-echo "✅ Notification email updated to: ${USER_EMAIL}"
+read -p "📧 Enter notification recipient email / To address [admin@yourdomain.com]: " USER_TO
+USER_TO=${USER_TO:-admin@yourdomain.com}
+
+# Update MAIL_FROM and MAIL_TO inside the script dynamically
+sed -i "s|MAIL_FROM=\".*\"|MAIL_FROM=\"${USER_FROM}\"|g" zimbra-security-check.sh
+sed -i "s|MAIL_TO=\".*\"|MAIL_TO=\"${USER_TO}\"|g" zimbra-security-check.sh
+
+echo "✅ Sender (From) updated to: ${USER_FROM}"
+echo "✅ Recipient (To) updated to: ${USER_TO}"
 
 echo "--------------------------------------------------------"
 echo "🎉 Installation Completed Successfully!"
