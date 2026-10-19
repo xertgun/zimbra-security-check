@@ -56,3 +56,4 @@ Instead of just sending generic alerts, it automatically generates **Click & Cop
 
 ## 🔗 Related Projects
 - [zimbra-fail2ban](https://github.com/xertgun/zimbra-fail2ban) - Fail2Ban filters, jail rules, and daily HTML defense reporter for Zimbra.
+- [zimbra-certbot-renew](https://github.com/xertgun/zimbra-certbot-renew) - Automated Let's Encrypt SSL certificate renewal and zero-downtime deployment script for Zimbra ZCS.
