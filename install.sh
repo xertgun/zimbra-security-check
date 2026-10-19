@@ -6,7 +6,7 @@
 # Author       : EGTA Software (Ertan Günay)
 # ==============================================================================
 
-INSTALL_DIR="/home/scripts/security-check"
+INSTALL_DIR="/opt/zimbra-security"
 REPO_URL="https://raw.githubusercontent.com/xertgun/zimbra-security-check/main"
 
 echo "--------------------------------------------------------"
