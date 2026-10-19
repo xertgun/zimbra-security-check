@@ -25,7 +25,7 @@ This automated installer will:
 
 ## ⚙️ Manual Configuration (Optional)
 If you prefer manual setup, make sure both `zimbra-security-check.sh` and `zimbra-security-excludes.conf` are in the same directory, and update the configuration parameters inside `zimbra-security-check.sh`:
-```bash
+```conf
    MAIL_FROM="Zimbra Security <zimbra@yourdomain.com>"
    MAIL_TO="Zimbra Administrator <admin@yourdomain.com>"
 
