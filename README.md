@@ -13,27 +13,33 @@ An automated Bash-based integrity scanner and incident response tool for Zimbra 
 
 ## 🚀 Quick Start
 
-1. Download the script and make it executable:
-   ```bash
-   wget https://raw.githubusercontent.com/xertgun/zimbra-security-check/main/zimbra-security-check.sh
-   chmod +x zimbra-security-check.sh
-   ```
+You can install and configure the security checker automatically with a single command:
+```bash
+sudo bash -c "$(curl -s https://raw.githubusercontent.com/xertgun/zimbra-security-check/main/install.sh)"
+```
+This automated installer will:
+1. Create the system directory at `/opt/zimbra-security/`.
+2. Download `zimbra-security-check.sh` and `zimbra-security-excludes.conf`.
+3. Prompt you for your notification email address and update the configuration automatically.
+4. Set the correct execution permissions.
 
-2. Edit configuration parameters inside the script:
-   ```bash
-      MAIL_FROM="Zimbra Security <zimbra@yourdomain.com>"
-      MAIL_TO="admin@yourdomain.com"
+## ⚙️ Manual Configuration (Optional)
+If you prefer manual setup, make sure both `zimbra-security-check.sh` and `zimbra-security-excludes.conf` are in the same directory, and update the configuration parameters inside `zimbra-security-check.sh`:
+```bash
+   MAIL_FROM="Zimbra Security <zimbra@yourdomain.com>"
+   MAIL_TO="admin@yourdomain.com"
 
-      # Optional: Configure Telegram Bot for instant mobile push alerts
-      TELEGRAM_BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN"
-      TELEGRAM_CHAT_ID="YOUR_TELEGRAM_CHAT_ID"
-   ```
-   > 💡 *Need help setting up Telegram notifications? Check out the [Telegram Setup Guide](TELEGRAM_SETUP.md).*
+   # Optional: Configure Telegram Bot for instant mobile push alerts
+   TELEGRAM_BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN"
+   TELEGRAM_CHAT_ID="YOUR_TELEGRAM_CHAT_ID"
+```
+> 💡 *Need help setting up Telegram notifications? Check out the [Telegram Setup Guide](TELEGRAM_SETUP.md).*
 
-3. Add to root crontab to run daily at 07:00 AM:
-   ```cron
-      0 7 * * * /your_script_folder/zimbra-security-check.sh > /dev/null 2>&1
-   ```
+## ⏰ Automated Daily Cron Job
+To run the security check automatically every day at 07:00 AM, add the following line to your root crontab (`sudo crontab -e`):
+```cron
+   0 7 * * * /opt/zimbra-security/zimbra-security-check.sh > /dev/null 2>&1
+```
 
 ## 💡 Why This Project Exists
 
