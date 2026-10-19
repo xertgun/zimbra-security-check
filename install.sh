@@ -39,14 +39,14 @@ echo "🔒 Execution permissions set."
 
 # 5. Interactive Configuration for MAIL_FROM and MAIL_TO
 echo "--------------------------------------------------------"
-read -p "📤 Enter sender email / From address [Zimbra Security <zimbra@yourdomain.com>]: " USER_FROM
+read -p "📤 Enter sender email / From address [zimbra@yourdomain.com]: " USER_FROM
 USER_FROM=${USER_FROM:-Zimbra Security <zimbra@yourdomain.com>}
 
 read -p "📧 Enter notification recipient email / To address [admin@yourdomain.com]: " USER_TO
 USER_TO=${USER_TO:-admin@yourdomain.com}
 
 # Update MAIL_FROM and MAIL_TO inside the script dynamically
-sed -i "s|MAIL_FROM=\".*\"|MAIL_FROM=\"${USER_FROM}\"|g" zimbra-security-check.sh
+sed -i "s|MAIL_FROM=\".*\"|MAIL_FROM=\"Zimbra Security <${USER_FROM}>\"|g" zimbra-security-check.sh
 sed -i "s|MAIL_TO=\".*\"|MAIL_TO=\"${USER_TO}\"|g" zimbra-security-check.sh
 
 echo "✅ Sender (From) updated to: ${USER_FROM}"
