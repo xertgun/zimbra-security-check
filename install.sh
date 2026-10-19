@@ -41,13 +41,13 @@ echo "🔒 Execution permissions set."
 echo "--------------------------------------------------------"
 read -p "🌐 Enter your mail domain [yourdomain.com]: " USER_DOMAIN
 USER_DOMAIN=${USER_DOMAIN:-yourdomain.com}
-USER_TO="admin@${USER_DOMAIN}"
 
 read -p "🤖 Enter Telegram Bot Token (Optional, press ENTER to skip): " USER_TG_TOKEN
 read -p "💬 Enter Telegram Chat ID (Optional, press ENTER to skip): " USER_TG_CHAT
 
-# Construct MAIL_FROM automatically using the domain
+# Construct MAIL_TO and MAIL_FROM automatically using the domain
 USER_FROM="Zimbra Security <zimbra@${USER_DOMAIN}>"
+USER_TO="Zimbra Administrator <admin@${USER_DOMAIN}>"
 
 # Update variables inside the script dynamically using sed
 sed -i "s|MAIL_FROM=\".*\"|MAIL_FROM=\"${USER_FROM}\"|g" zimbra-security-check.sh
