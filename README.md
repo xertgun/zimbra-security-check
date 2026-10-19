@@ -27,7 +27,7 @@ This automated installer will:
 If you prefer manual setup, make sure both `zimbra-security-check.sh` and `zimbra-security-excludes.conf` are in the same directory, and update the configuration parameters inside `zimbra-security-check.sh`:
 ```bash
    MAIL_FROM="Zimbra Security <zimbra@yourdomain.com>"
-   MAIL_TO="admin@yourdomain.com"
+   MAIL_TO="Zimbra Administrator <admin@yourdomain.com>"
 
    # Optional: Configure Telegram Bot for instant mobile push alerts
    TELEGRAM_BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN"
