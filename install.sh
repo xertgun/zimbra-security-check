@@ -49,7 +49,7 @@ else
 fi
 
 # Optional friendly language notification
-echo "ℹ️ ${MSG_LANG_NOFIFY}"
+echo "${MSG_LANG_NOFIFY}"
 
 # 6. Set execution permissions
 chmod +x zimbra-security-check.sh
