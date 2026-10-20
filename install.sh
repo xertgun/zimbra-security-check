@@ -8,7 +8,7 @@
 INSTALL_DIR="/opt/zimbra-security"
 REPO_URL="https://raw.githubusercontent.com/xertgun/zimbra-security-check/v2-multilingual"
 
-echo "--------------------------------------------------------"
+echo "----------------------------------------------------------------------------------------------------------------"
 
 # 1. Check if running as root
 if [ "$(id -u)" -ne 0 ]; then
@@ -42,6 +42,8 @@ curl -s "${REPO_URL}/lang/tr.conf" -o "lang/tr.conf"
 curl -s "${REPO_URL}/lang/de.conf" -o "lang/de.conf"
 
 # 5. Source the selected language file to get all messages dynamically
+echo "\n"
+echo "----------------------------------------------------------------------------------------------------------------"
 if [ -f "lang/${USER_LANG}.conf" ]; then
     source "lang/${USER_LANG}.conf"
 else
@@ -55,7 +57,8 @@ echo "${MSG_LANG_NOFIFY}"
 chmod +x zimbra-security-check.sh
 
 # 7. Interactive Configuration using language variables
-echo "--------------------------------------------------------"
+echo "\n"
+echo "----------------------------------------------------------------------------------------------------------------"
 read -p "$MSG_PROMPT_DOMAIN" USER_DOMAIN
 USER_DOMAIN=${USER_DOMAIN:-yourdomain.com}
 
@@ -78,14 +81,16 @@ if [ -n "$USER_TG_CHAT" ]; then
     sed -i "s|TELEGRAM_CHAT_ID=\".*\"|TELEGRAM_CHAT_ID=\"${USER_TG_CHAT}\"|g" zimbra-security-check.sh
 fi
 
-echo "--------------------------------------------------------"
+echo "\n"
+echo "----------------------------------------------------------------------------------------------------------------"
 echo "$MSG_SETUP_SUCCESS"
 echo "${MSG_LABEL_LANG}${USER_LANG^^}"
 echo "${MSG_LABEL_FROM}${USER_FROM}"
 echo "${MSG_LABEL_TO}${USER_TO}"
 [ -n "$USER_TG_TOKEN" ] && echo "$MSG_LABEL_TG_OK" || echo "$MSG_LABEL_TG_SKIP"
-echo "--------------------------------------------------------"
+echo "\n"
+echo "----------------------------------------------------------------------------------------------------------------"
 echo "🎉 ${MSG_SETUP_DONE}!"
 echo "${MSG_LABEL_LOC:-📍 Location: } $INSTALL_DIR"
 echo "${MSG_TEST_RUN}${INSTALL_DIR}/zimbra-security-check.sh"
-echo "--------------------------------------------------------"
+echo "----------------------------------------------------------------------------------------------------------------"
