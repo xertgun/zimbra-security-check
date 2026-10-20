@@ -33,12 +33,15 @@ NEW_WEB_FILES=$(find /opt/zimbra/jetty/webapps/ /opt/zimbra/mailboxd/webapps/ -t
 
 # 2. Process / Memory Inspection (Using external exclude file for clean code)
 EXCLUDE_FILE="$(dirname "$0")/zimbra-security-excludes.conf"
+CONFIG_MISSING=0
 
 if [ -f "$EXCLUDE_FILE" ]; then
     RAW_PROC_SCAN=$(ps aux | grep -E "zimbra|postfix" | grep -v -F -f "$EXCLUDE_FILE")
 else
-    # Fallback mechanism if exclude file is missing
-    RAW_PROC_SCAN=$(ps aux | grep -E "zimbra|postfix" | grep -v -E "java|mailboxd|mysqld|amavis")
+    # Fallback mechanism if exclude file is missing to prevent massive false positives
+    CONFIG_MISSING=1
+    ALERT=1
+    RAW_PROC_SCAN=""
 fi
 
 if [ -n "$RAW_PROC_SCAN" ]; then
@@ -60,7 +63,11 @@ NEW_FILES_STATUS="✅ Clean"
 [ -n "$NEW_WEB_FILES" ] && NEW_FILES_STATUS="⚠️ Modified in last 24h"
 
 PROC_STATUS="✅ Normal"
-[ -n "$RAW_PROC_SCAN" ] && PROC_STATUS="❌ Unknown Process!"
+if [ $CONFIG_MISSING -eq 1 ]; then
+    PROC_STATUS="⚠️ Config Missing (Excludes file not found!)"
+elif [ -n "$RAW_PROC_SCAN" ]; then
+    PROC_STATUS="❌ Unknown Process!"
+fi
 
 CRON_STATUS="✅ Clean"
 [ -n "$CRON_SCAN" ] && CRON_STATUS="❌ Unauthorized Job!" && ALERT=1
@@ -90,6 +97,7 @@ cat <<EOF > "$REPORT_FILE"
   .cmd-box { background: #0f172a; border-left: 4px solid #10b981; border-radius: 6px; padding: 12px; margin-top: 10px; }
   .cmd-title { color: #38bdf8; font-size: 12px; font-weight: bold; margin-bottom: 8px; display: block; }
   .cmd-code { width: 100%; background: #1e293b; color: #a7f3d0; border: 1px solid #334155; border-radius: 4px; padding: 10px; font-family: monospace; font-size: 12px; box-sizing: border-box; resize: none; }
+  .config-warn { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; padding: 15px; border-radius: 6px; margin-top: 15px; font-size: 13px; line-height: 1.5; }
   h3 { border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; color: #1e293b; margin-top: 25px; font-size: 14px; }
   .footer { font-size: 11px; color: #94a3b8; margin-top: 25px; text-align: center; }
 </style>
@@ -106,7 +114,7 @@ EOF
 if [ $ALERT -eq 0 ]; then
   echo "<div class='status-badge status-ok'>✅ Security Scan Completed - No Threats or Intrusions Detected</div>" >> "$REPORT_FILE"
 else
-  echo "<div class='status-badge status-warn'>🚨 WARNING: Suspicious Activity / Unauthorized Files Detected!</div>" >> "$REPORT_FILE"
+  echo "<div class='status-badge status-warn'>🚨 WARNING: Suspicious Activity / Configuration Issue Detected!</div>" >> "$REPORT_FILE"
 fi
 
 cat <<EOF >> "$REPORT_FILE"
@@ -120,6 +128,16 @@ cat <<EOF >> "$REPORT_FILE"
     <tr><td><b>Backdoor (Cron) Audit</b></td><td>crontab -u zimbra</td><td>${CRON_STATUS}</td></tr>
   </table>
 EOF
+
+# Configuration Warning Box if Exclude File is Missing
+if [ $CONFIG_MISSING -eq 1 ]; then
+  cat <<EOF >> "$REPORT_FILE"
+  <div class="config-warn">
+    <strong>⚠️ CRITICAL CONFIGURATION WARNING:</strong><br>
+    The <code>zimbra-security-excludes.conf</code> file was not found in the script directory. Process inspection has been suspended to prevent false alarms. Please create the exclude configuration file to restore full monitoring.
+  </div>
+EOF
+fi
 
 # 1. Suspicious Temp Files
 if [ -n "$TMP_SCAN" ]; then
@@ -155,7 +173,7 @@ if [ -n "$WEB_JSP_SCAN" ]; then
 EOF
 fi
 
-# 3. Suspicious Processes
+# 3. Suspicious Processes (Only if config exists and raw scan has output)
 if [ -n "$RAW_PROC_SCAN" ]; then
   echo "<h3>❌ Suspicious Running Processes</h3>" >> "$REPORT_FILE"
   echo "<table class='proc-table'><tr><th>USER</th><th>PID</th><th>%CPU</th><th>%MEM</th><th>COMMAND</th></tr>" >> "$REPORT_FILE"
@@ -200,11 +218,15 @@ EOF
 # ------------------------------------------------------------------------------
 SUBJECT="[ZIMBRA SECURITY OK] ${HOSTNAME} - ${DATE}"
 if [ $ALERT -eq 1 ]; then
-  SUBJECT="[🚨 ZIMBRA ALERT] ${HOSTNAME} - Suspicious Activity Detected - ${DATE}"
+  if [ $CONFIG_MISSING -eq 1 ]; then
+    SUBJECT="[⚠️ ZIMBRA CONFIG WARNING] ${HOSTNAME} - Excludes File Missing - ${DATE}"
+  else
+    SUBJECT="[🚨 ZIMBRA ALERT] ${HOSTNAME} - Suspicious Activity Detected - ${DATE}"
+  fi
   
   # Send Telegram Notification (if Token and Chat ID are configured)
   if [ "$TELEGRAM_BOT_TOKEN" != "YOUR_TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_BOT_TOKEN" ]; then
-    TG_MSG="🚨 <b>[ZIMBRA SECURITY ALERT]</b>%0A<b>Server:</b> ${HOSTNAME}%0A<b>Date:</b> ${DATE}%0A%0A⚠️ Unauthorized file, webshell, or suspicious process detected on server!%0ACheck your email inbox for remediation commands."
+    TG_MSG="🚨 <b>[ZIMBRA SECURITY ALERT]</b>%0A<b>Server:</b> ${HOSTNAME}%0A<b>Date:</b> ${DATE}%0A%0A⚠️ Security warning or missing configuration detected! Check your email inbox."
     curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
          -d "chat_id=${TELEGRAM_CHAT_ID}" \
          -d "parse_mode=HTML" \
