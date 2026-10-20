@@ -57,7 +57,7 @@ chmod +x zimbra-security-check.sh
 # 7. Interactive Configuration using language variables
 echo "--------------------------------------------------------"
 read -p "$MSG_PROMPT_DOMAIN" USER_DOMAIN
-USER_DOMAIN=${USER_DOMAIN:-yourdomain.com}
+USER_DOMAIN=${USER_DOMAIN:-domain.com}
 
 read -p "$MSG_PROMPT_TG_TOKEN" USER_TG_TOKEN
 read -p "$MSG_PROMPT_TG_CHAT" USER_TG_CHAT
