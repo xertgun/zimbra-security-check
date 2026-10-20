@@ -16,11 +16,11 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# 2. Early Language Selection (Only this part stays universal)
-echo "🌍 Please select installation and report language / Lütfen dil seçiniz / Sprache wählen:"
-echo "   1) English (en) - Default"
-echo "   2) Turkish (tr)"
-echo "   3) German (de)"
+# 2. Early Language Selection (Multilingual Prompt)
+echo "🌍 Please select your language:"
+echo "   1) Select Language: English (en) - Default"
+echo "   2) Dili Seçiniz: Türkçe (tr)"
+echo "   3) Sprache Wählen: Deutsch (de)"
 read -p "👉 Choose language [1-3, default: 1]: " LANG_CHOICE
 
 case "$LANG_CHOICE" in
@@ -47,6 +47,9 @@ if [ -f "lang/${USER_LANG}.conf" ]; then
 else
     source "lang/en.conf"
 fi
+
+# Optional friendly language notification
+echo "ℹ️ ${MSG_LANG_NOFIFY}"
 
 # 6. Set execution permissions
 chmod +x zimbra-security-check.sh
@@ -83,6 +86,6 @@ echo "${MSG_LABEL_TO}${USER_TO}"
 [ -n "$USER_TG_TOKEN" ] && echo "$MSG_LABEL_TG_OK" || echo "$MSG_LABEL_TG_SKIP"
 echo "--------------------------------------------------------"
 echo "🎉 ${MSG_SETUP_DONE}!"
-echo "📍 Location: $INSTALL_DIR"
+echo "${MSG_LABEL_LOC:-📍 Location: } $INSTALL_DIR"
 echo "${MSG_TEST_RUN}${INSTALL_DIR}/zimbra-security-check.sh"
 echo "--------------------------------------------------------"
