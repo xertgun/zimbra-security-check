@@ -37,9 +37,9 @@ cd "$INSTALL_DIR" || exit 1
 echo "📥 Downloading core & language files..."
 curl -s -O "${REPO_URL}/zimbra-security-check.sh"
 curl -s -O "${REPO_URL}/zimbra-security-excludes.conf"
-curl -s -O "${REPO_URL}/lang/en.conf" --output lang/en.conf
-curl -s -O "${REPO_URL}/lang/tr.conf" --output lang/tr.conf
-curl -s -O "${REPO_URL}/lang/de.conf" --output lang/de.conf
+curl -s "${REPO_URL}/lang/en.conf" -o "lang/en.conf"
+curl -s "${REPO_URL}/lang/tr.conf" -o "lang/tr.conf"
+curl -s "${REPO_URL}/lang/de.conf" -o "lang/de.conf"
 
 # 5. Source the selected language file to get all messages dynamically
 if [ -f "lang/${USER_LANG}.conf" ]; then
