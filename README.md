@@ -10,12 +10,12 @@ An automated Bash-based integrity scanner and incident response tool for Zimbra 
    - **Crontab Audit:** Checks for unauthorized persistence mechanisms added to the `zimbra` user crontab.
    - **Interactive HTML Email Reports:** Sends a responsive HTML report with **Click & Copy** remediation commands.
    - **Instant Telegram Alerts:** Sends real-time emergency notifications directly to your Telegram chat/channel when threats or anomalies are detected.
-   - **Multi-Language Support:** Easily switch between English (`en`), Turkish (`tr`), and German (`de`) via configuration or installer.
    - **Multi-Language Support:** Interactive installer and report generator with built-in localization.
       - 🇬🇧 English (`en`) - Default
       - 🇹🇷 Türkçe (`tr`)
       - 🇩🇪 Deutsch (`de`)
       - 🇫🇷 Français (`fr`) *(v2.0.1)*
+      - 🇪🇸 Español (`es`) *(v2.0.3)*
 
 ## 🚀 Quick Start
 

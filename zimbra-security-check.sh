@@ -3,7 +3,7 @@
 # Script Name : zimbra-security-check.sh
 # Description : Daily integrity scanner and security reporter for Zimbra ZCS
 # Tested On   : Zimbra Collaboration Suite 8.8.15 (ZCS 8.8.15 GA)
-# Version     : 2.0.2
+# Version     : 2.0.3
 # Author      : EGTA Software (Ertan Günay)
 # Repository  : https://github.com/xertgun/zimbra-security-check
 # ==============================================================================
@@ -17,7 +17,7 @@ MAIL_TO="Zimbra Administrator <admin@yourdomain.com>"
 # Language Selection: tr (Turkish), en (English), de (German), fr (French)
 DEFAULT_LANG="tr"
 
-VERSION="2.0.2"
+VERSION="2.0.3"
 HOSTNAME=$(hostname -f)
 DATE=$(date +"%Y-%m-%d %H:%M")
 REPORT_FILE="/tmp/sec_report_$$.html"

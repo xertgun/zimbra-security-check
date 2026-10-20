@@ -1,5 +1,10 @@
 # Zimbra Security Check - Version History
 
+## [v2.0.3] - 2026-03-31
+- **Spanish Language Support:** Added `lang/es.conf` for complete Spanish localization.
+- **Installer Update:** Updated `install.sh` with interactive Spanish language selection option.
+- **Documentation:** Updated `README.md` to include Spanish language support.
+
 ## [v2.0.2] - 2026-03-31
 - **i18n Enhancement:** Moved "Version" and "Date" labels inside language configuration files (`lang/*.conf`) for full multi-language header support.
 - **Version Management:** Version number and history are now officially tracked via `VERSION.md`.
