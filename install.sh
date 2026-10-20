@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==============================================================================
 # Project Name : Zimbra Security & Integrity Checker
-# Description  : Automated installer for Zimbra ZCS Security Monitoring (v2.0.0)
+# Description  : Automated installer for Zimbra ZCS Security Monitoring (v2.0.5)
 # Author       : EGTA Software (Ertan Günay)
 # ==============================================================================
 
