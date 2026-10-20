@@ -32,7 +32,7 @@ WEB_JSP_SCAN=$(find /opt/zimbra/jetty/webapps /opt/zimbra/mailboxd/webapps -type
 NEW_WEB_FILES=$(find /opt/zimbra/jetty/webapps/ /opt/zimbra/mailboxd/webapps/ -type f -mtime -1 2>/dev/null | grep -vE "\.(xml|properties|html)$")
 
 # 2. Process / Memory Inspection (Using external exclude file for clean code)
-EXCLUDE_FILE="/home/scripts/zimbra-security-excludes.conf"
+EXCLUDE_FILE="$(dirname "$0")/zimbra-security-excludes.conf"
 
 if [ -f "$EXCLUDE_FILE" ]; then
     RAW_PROC_SCAN=$(ps aux | grep -E "zimbra|postfix" | grep -v -F -f "$EXCLUDE_FILE")
