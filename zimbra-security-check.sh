@@ -124,7 +124,7 @@ cat <<EOF > "$REPORT_FILE"
   <div class="header">
     <h2 style="margin:0;">🛡️ ${MSG_TITLE}</h2>
     <p style="margin:6px 0 0 0; font-size:13px; font-weight:500; color:#e2e8f0; letter-spacing:0.5px;">${MSG_SUBTITLE}</p>
-    <p style="margin:5px 0 0 0; font-size:12px; color:#cbd5e1;">Server: ${HOSTNAME} | Version: v2.0.0 (${DEFAULT_LANG^^}) | Date: ${DATE}</p>
+    <p style="margin:5px 0 0 0; font-size:12px; color:#cbd5e1;">Server: ${HOSTNAME} | Version: v2.0.1 (${DEFAULT_LANG^^}) | Date: ${DATE}</p>
   </div>
 EOF
 
