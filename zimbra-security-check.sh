@@ -1,8 +1,8 @@
 #!/bin/bash
-# ==============================================================================
 # Script Name : zimbra-security-check.sh
 # Description : Daily integrity scanner and security reporter for Zimbra ZCS
 # Tested On   : Zimbra Collaboration Suite 8.8.15 (ZCS 8.8.15 GA)
+# Version     : 1.1.0
 # Author      : EGTA Software (Ertan Günay)
 # Repository  : https://github.com/xertgun/zimbra-security-check
 # ==============================================================================
@@ -107,7 +107,7 @@ cat <<EOF > "$REPORT_FILE"
   <div class="header">
     <h2 style="margin:0;">🛡️ EGTA Digital Defense Summary</h2>
     <p style="margin:6px 0 0 0; font-size:13px; font-weight:500; color:#e2e8f0; letter-spacing:0.5px;">Zimbra Daily Integrity & Security Report</p>
-    <p style="margin:5px 0 0 0; font-size:12px; color:#cbd5e1;">Server: ${HOSTNAME} | Date: ${DATE}</p>
+    <p style="margin:5px 0 0 0; font-size:12px; color:#cbd5e1;">Server: ${HOSTNAME} | Version: v1.1.0 | Date: ${DATE}</p>
   </div>
 EOF
 
