@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==============================================================================
 # Project Name : Zimbra Security & Integrity Checker
-# Description  : Automated installer for Zimbra ZCS Security Monitoring (v2.0.0)
+# Description  : Automated installer for Zimbra ZCS Security Monitoring (v2.0.1)
 # Author       : EGTA Software (Ertan Günay)
 # ==============================================================================
 
@@ -21,11 +21,13 @@ echo "🌍 Please select your language:"
 echo "   1) Select Language: English (en) - Default"
 echo "   2) Dili Seçiniz: Türkçe (tr)"
 echo "   3) Sprache Wählen: Deutsch (de)"
+echo "   4) Choisir la langue : Français (fr)"
 read -p "👉 Choose language [1-3, default: 1]: " LANG_CHOICE
 
 case "$LANG_CHOICE" in
     2) USER_LANG="tr" ;;
     3) USER_LANG="de" ;;
+    4) USER_LANG="fr" ;;
     *) USER_LANG="en" ;;
 esac
 
@@ -40,6 +42,7 @@ curl -s -O "${REPO_URL}/zimbra-security-excludes.conf"
 curl -s "${REPO_URL}/lang/en.conf" -o "lang/en.conf"
 curl -s "${REPO_URL}/lang/tr.conf" -o "lang/tr.conf"
 curl -s "${REPO_URL}/lang/de.conf" -o "lang/de.conf"
+curl -s "${REPO_URL}/lang/fr.conf" -o "lang/fr.conf"
 
 # 5. Source the selected language file to get all messages dynamically
 echo ""
