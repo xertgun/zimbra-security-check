@@ -233,22 +233,22 @@ EOF
 # ------------------------------------------------------------------------------
 # ALERT & EMAIL DISPATCH
 # ------------------------------------------------------------------------------
-SUBJECT="[ZIMBRA SECURITY OK] ${HOSTNAME} - ${DATE}"
+SUBJECT="${MSG_SUBJ_OK} ${HOSTNAME} - ${DATE}"
 if [ $ALERT -eq 1 ]; then
-  if [ $CONFIG_MISSING -eq 1 ]; then
-    SUBJECT="[⚠️ ZIMBRA CONFIG WARNING] ${HOSTNAME} - Excludes File Missing - ${DATE}"
-  else
-    SUBJECT="[🚨 ZIMBRA ALERT] ${HOSTNAME} - Suspicious Activity Detected - ${DATE}"
-  fi
-  
-  # Send Telegram Notification (if Token and Chat ID are configured)
-  if [ "$TELEGRAM_BOT_TOKEN" != "YOUR_TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_BOT_TOKEN" ]; then
-    TG_MSG="🚨 <b>[ZIMBRA SECURITY ALERT]</b>%0A<b>Server:</b> ${HOSTNAME}%0A<b>Date:</b> ${DATE}%0A%0A⚠️ Security warning or missing configuration detected! Check your email inbox."
-    curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-         -d "chat_id=${TELEGRAM_CHAT_ID}" \
-         -d "parse_mode=HTML" \
-         -d "text=${TG_MSG}" > /dev/null
-  fi
+    if [ $CONFIG_MISSING -eq 1 ]; then
+        SUBJECT="${MSG_SUBJ_WARN} ${HOSTNAME} - ${MSG_SUBJ_MISSING_EXC} - ${DATE}"
+    else
+        SUBJECT="${MSG_SUBJ_ALERT} ${HOSTNAME} - ${MSG_STATUS_WARN} - ${DATE}"
+    fi
+
+    # Send Telegram Notification (if Token and Chat ID are configured)
+    if [ "$TELEGRAM_BOT_TOKEN" != "YOUR_TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_BOT_TOKEN" ]; then
+        TG_MSG="🚨 <b>[ZIMBRA SECURITY ALERT]</b>%0A<b>Server:</b> ${HOSTNAME}%0A<b>Date:</b> ${DATE}%0A%0A⚠️ Security warning or missing configuration detected! Check your email inbox."
+        curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+             -d "chat_id=${TELEGRAM_CHAT_ID}" \
+             -d "parse_mode=HTML" \
+             -d "text=${TG_MSG}" > /dev/null
+    fi
 fi
 
 mail -a "Content-Type: text/html; charset=UTF-8" -a "From: ${MAIL_FROM}" -s "$SUBJECT" "$MAIL_TO" < "$REPORT_FILE"
