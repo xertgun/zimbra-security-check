@@ -3,7 +3,7 @@
 # Script Name : zimbra-security-check.sh
 # Description : Daily integrity scanner and security reporter for Zimbra ZCS
 # Tested On   : Zimbra Collaboration Suite 8.8.15 (ZCS 8.8.15 GA)
-# Version     : 2.0.3
+# Version     : 2.0.4
 # Author      : EGTA Software (Ertan Günay)
 # Repository  : https://github.com/xertgun/zimbra-security-check
 # ==============================================================================
@@ -17,7 +17,7 @@ MAIL_TO="Zimbra Administrator <admin@yourdomain.com>"
 # Language Selection: tr (Turkish), en (English), de (German), fr (French)
 DEFAULT_LANG="tr"
 
-VERSION="2.0.3"
+VERSION="2.0.4"
 HOSTNAME=$(hostname -f)
 DATE=$(date +"%Y-%m-%d %H:%M")
 REPORT_FILE="/tmp/sec_report_$$.html"
@@ -125,7 +125,7 @@ cat <<EOF > "$REPORT_FILE"
   <div class="header">
     <h2 style="margin:0;">🛡️ ${MSG_TITLE}</h2>
     <p style="margin:6px 0 0 0; font-size:13px; font-weight:500; color:#e2e8f0; letter-spacing:0.5px;">${MSG_SUBTITLE}</p>
-    <p style="margin:5px 0 0 0; font-size:12px; color:#cbd5e1;">Server: ${HOSTNAME} | ${MSG_VERSION_LABEL}: v${VERSION} (${DEFAULT_LANG^^}) | ${MSG_DATE_LABEL}: ${DATE}</p>
+    <p style="margin:5px 0 0 0; font-size:12px; color:#cbd5e1;">${MSG_SERVER_LABEL}: ${HOSTNAME} | ${MSG_VERSION_LABEL}: v${VERSION} (${DEFAULT_LANG^^}) | ${MSG_DATE_LABEL}: ${DATE}</p>
   </div>
 EOF
 

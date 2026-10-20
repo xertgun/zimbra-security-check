@@ -1,5 +1,9 @@
 # Zimbra Security Check - Version History
 
+## [v2.0.4] - 2026-03-31
+- **i18n Perfection:** Localized the "Server" header label across all language configuration files (`lang/*.conf`) for complete multi-language consistency.
+- **Version Update:** Upgraded core script version to `v2.0.4`.
+
 ## [v2.0.3] - 2026-03-31
 - **Spanish Language Support:** Added `lang/es.conf` for complete Spanish localization.
 - **Installer Update:** Updated `install.sh` with interactive Spanish language selection option.
