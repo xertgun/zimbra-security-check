@@ -6,7 +6,7 @@
 # ==============================================================================
 
 INSTALL_DIR="/opt/zimbra-security"
-REPO_URL="https://raw.githubusercontent.com/xertgun/zimbra-security-check/v2-multilingual"
+REPO_URL="https://raw.githubusercontent.com/xertgun/zimbra-security-check/main"
 
 echo "----------------------------------------------------------------------------------------------------------------"
 
