@@ -16,6 +16,7 @@ An automated Bash-based integrity scanner and incident response tool for Zimbra 
       - 🇩🇪 Deutsch (`de`)
       - 🇫🇷 Français (`fr`) *(v2.0.1)*
       - 🇪🇸 Español (`es`) *(v2.0.3)*
+      - 🇷🇺 Русский (`ru`) *(v2.0.5)*
 
 ## 🚀 Quick Start
 

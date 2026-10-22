@@ -3,7 +3,7 @@
 # Script Name : zimbra-security-check.sh
 # Description : Daily integrity scanner and security reporter for Zimbra ZCS
 # Tested On   : Zimbra Collaboration Suite 8.8.15 (ZCS 8.8.15 GA)
-# Version     : 2.0.4
+# Version     : 2.0.5
 # Author      : EGTA Software (Ertan Günay)
 # Repository  : https://github.com/xertgun/zimbra-security-check
 # ==============================================================================
@@ -11,13 +11,10 @@
 # ------------------------------------------------------------------------------
 # CONFIGURATION AREA (User Specific Settings)
 # ------------------------------------------------------------------------------
+VERSION="2.0.5"
+DEFAULT_LANG="tr" # Language Selection: tr (Turkish), en (English), de (German), fr (French), es (Spanish)
 MAIL_FROM="Zimbra Security <zimbra@yourdomain.com>"
 MAIL_TO="Zimbra Administrator <admin@yourdomain.com>"
-
-# Language Selection: tr (Turkish), en (English), de (German), fr (French)
-DEFAULT_LANG="tr"
-
-VERSION="2.0.4"
 HOSTNAME=$(hostname -f)
 DATE=$(date +"%Y-%m-%d %H:%M")
 REPORT_FILE="/tmp/sec_report_$$.html"
@@ -160,7 +157,7 @@ fi
 # 1. Suspicious Temp Files
 if [ -n "$TMP_SCAN" ]; then
   echo "<h3>❌ Suspicious Files in Temp Directories</h3><pre>${TMP_SCAN}</pre>" >> "$REPORT_FILE"
-  
+
   CLEAN_FILE_CMDS=""
   for file in $TMP_SCAN; do
     CLEAN_FILE_CMDS="${CLEAN_FILE_CMDS}sudo rm -fv ${file}&#10;"
@@ -177,7 +174,7 @@ fi
 # 2. Webshell (.jsp) Files
 if [ -n "$WEB_JSP_SCAN" ]; then
   echo "<h3>❌ Unauthorized .jsp Files Detected (Webshell)</h3><pre>${WEB_JSP_SCAN}</pre>" >> "$REPORT_FILE"
-  
+
   CLEAN_JSP_CMDS=""
   for jsp in $WEB_JSP_SCAN; do
     CLEAN_JSP_CMDS="${CLEAN_JSP_CMDS}sudo rm -fv ${jsp}&#10;"
@@ -195,13 +192,13 @@ fi
 if [ -n "$RAW_PROC_SCAN" ]; then
   echo "<h3>❌ ${MSG_PROC_TABLE_TITLE}</h3>" >> "$REPORT_FILE"
   echo "<table class='proc-table'><tr><th>USER</th><th>PID</th><th>%CPU</th><th>%MEM</th><th>COMMAND</th></tr>" >> "$REPORT_FILE"
-  
+
   echo "$RAW_PROC_SCAN" | while read -r user pid cpu mem vsz rss tty stat start time cmd; do
     echo "<tr><td>$user</td><td class='pid-col'>$pid</td><td>$cpu</td><td>$mem</td><td>$cmd</td></tr>" >> "$REPORT_FILE"
   done
-  
+
   echo "</table>" >> "$REPORT_FILE"
-  
+
   PROC_CMDS=""
   for pid in $DETECTED_PIDS; do
     PROC_CMDS="${PROC_CMDS}sudo ls -la /proc/${pid}/exe; sudo lsof -p ${pid}; sudo kill -9 ${pid}&#10;"
