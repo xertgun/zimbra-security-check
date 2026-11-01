@@ -52,7 +52,7 @@ To run the security check automatically every day at 07:00 AM, add the following
 
 > **Please Note:** This software is strictly an **audit, scanning, and reporting tool**. The reported processes, files, or alerts reflect the current state of the system; however, an alert does not automatically mean a confirmed malicious activity (*False Positives* can occur). 
 > 
-> * **Do Not Take Action Without Investigation:** Before running any remediation commands, stopping processes, or deleting any files listed under the "Remediation Commands" section, **always thoroughly investigate the specific process or file**.
+> * **Do Not Take Action Without Investigation:** Before running any remediation commands, stopping processes, or deleting any files listed under the "Suspicious Running Processes" section, **always thoroughly investigate the specific process or file**.
 > * **User Responsibility:** Any accidental deletion, service interruption, or configuration breakdown resulting from unverified actions or components not defined in `zimbra-security-excludes.conf` is **entirely the responsibility of the user (system administrator)**. The developer cannot be held liable under any circumstances.
 
 ## 💡 Why This Project Exists
