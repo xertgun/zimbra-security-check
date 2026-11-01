@@ -1,5 +1,10 @@
 # Zimbra Security Check - Version History
 
+## [v2.0.5] - 2026-10-15
+- **Russian Language Support:** Added `lang/ru.conf` for complete Russian localization.
+- **Installer Update:** Updated `install.sh` to include Russian language selection option.
+- **Documentation:** Updated `README.md` to display full multi-language matrix including Russian support.
+
 ## [v2.0.4] - 2026-09-20
 - **i18n Perfection:** Localized the "Server" header label across all language configuration files (`lang/*.conf`) for complete multi-language consistency.
 - **Version Update:** Upgraded core script version to `v2.0.4`.
